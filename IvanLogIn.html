@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login -BOOKSTORE</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f1f1f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background: black;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        button {
+            background-color: #101010;
+            color: white;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #f9f9f9;
+        }
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+        .success {
+            color: brown;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button id="login-button" onclick="checkLogin()">Login</button>
+        <p class="error" id="error-message"></p>
+    </div>
+
+    <script>
+        const DEFAULT_CREDENTIALS = {
+            username: "IvanArnejo",
+            password: "ivanarnejo123"
+        };
+        let failedAttempts = 0;
+        let isCooldown = false;
+
+        function checkLogin() {
+
+
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+            const errorMessage = document.getElementById("error-message");
+            const loginButton = document.getElementById("login-button");
+
+            if (!username || !password) {
+                errorMessage.textContent = "Please fill in both fields.";
+                return;
+            }
+
+            if (username === DEFAULT_CREDENTIALS.username && password === DEFAULT_CREDENTIALS.password) {
+                alert("Login successful!");
+                window.location.href = "file:///D:/kay%20Ivan%20to%20ha/AHAHAHAHAHHAA%20tapos%20na.html ";
+            } else {
+                failedAttempts++;
+                errorMessage.textContent = "Invalid username or password";
+
+                if (failedAttempts >= 2) {
+                    isCooldown = true;
+                    loginButton.disabled = true;
+                    errorMessage.textContent = "Too many failed attempts. Try again in 10 seconds.";
+                    disableInputs(true);
+                    setTimeout(() => {
+                        isCooldown = false;
+                        loginButton.disabled = false;
+                        errorMessage.textContent = "";
+                        failedAttempts = 0;
+                        disableInputs(false);
+                    }, 10000);
+                }
+            }
+        }
+        function disableInputs (disable){
+            document.getElementById("userivanarnejo").disabled = disable;
+            document.getElementById("passivanarnejo123").disabled = disable;
+            document.querySelector("button[type='login-button']").disabled = disable;
+        }
+
+    </script>
+</body>
+</html>
